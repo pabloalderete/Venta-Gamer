@@ -1,0 +1,11 @@
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\Negocio.dll
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\Negocio.pdb
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\DAO.dll
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\Entidades.dll
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\DAO.pdb
+C:\Users\gusta\source\repos\VentaGamer\Negocio\bin\Debug\Entidades.pdb
+C:\Users\gusta\source\repos\VentaGamer\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
+C:\Users\gusta\source\repos\VentaGamer\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\gusta\source\repos\VentaGamer\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+C:\Users\gusta\source\repos\VentaGamer\Negocio\obj\Debug\Negocio.dll
+C:\Users\gusta\source\repos\VentaGamer\Negocio\obj\Debug\Negocio.pdb

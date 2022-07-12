@@ -1,0 +1,189 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PaginaMaestra.Master.cs" Inherits="VentaGamer.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <asp:ContentPlaceHolder ID="Titulo" runat="server" />
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome/all.css" rel="stylesheet" />
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <form id="PaginaMaestra" runat="server">
+        <%--ENCABEZADO--%>
+        <section class="header container-fluid">
+            <div class="row h-100 align-items-center">
+                <div class="col-1 d-flex justify-content-center">
+                    <asp:LinkButton ID="btnMenu" Text="<i class='fa-solid fa-bars'></i>" Font-Size="2em" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" runat="server"></asp:LinkButton>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header justify-content-end">
+                            <%--<h5 class="offcanvas-title" id="offcanvasExampleLabel">Categorias</h5>--%>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="">
+                                <h4 class="fw-bold">Categorias</h4>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <asp:Repeater ID="rptCategorias" OnItemCommand="rptCategorias_ItemCommand" runat="server">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkNombreCategoria" CssClass="list-group-item list-group-item-action" PostBackUrl='<%# Page.ResolveUrl(currentUrl + "?IdCategoria=") + Eval("IdCategoria_Ca") %>' runat="server"><%# Eval("Nombre_Ca") %></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <div class="mt-2">
+                                <h4 class="fw-bold">Marcas</h4>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <asp:Repeater ID="rptMarcas" runat="server">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkNombreCategoria" CssClass="list-group-item list-group-item-action" PostBackUrl='<%# Page.ResolveUrl(currentUrl + "?IdMarca=") + Eval("IdMarca_Ma") %>' runat="server"><%# Eval("Nombre_Ma") %></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <asp:ImageButton ID="imgBtnLogo" runat="server" OnClick="imgBtnLogo_Click" CssClass="img-fluid" ImageUrl="~\Imagenes\Logo.png" />
+                </div>
+                <div class="col-6">
+                    <asp:Panel ID="panelBuscador" DefaultButton="btnBuscador" runat="server">
+                        <div class="form-floating">
+                            <asp:TextBox ID="txtBusqueda" CssClass="form-control" placeholder="Buscador" runat="server"></asp:TextBox>
+                            <label for="txtBusqueda">Buscador</label>
+                            <small>
+                                <asp:CustomValidator ID="cuvTxtBusqueda" runat="server" Display="Dynamic" ForeColor="Red" ControlToValidate="txtBusqueda" Text="Maximo 100 caracteres." OnServerValidate="cuvTxtBusqueda_ServerValidate" CustomControlName="txtBusqueda" ValidationGroup="1"></asp:CustomValidator>
+                            </small>
+                        </div>
+                        <asp:LinkButton ID="btnBuscador" OnClick="btnBuscador_Click" Style="display: none;" runat="server" ValidationGroup="1"></asp:LinkButton>
+                    </asp:Panel>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <div class="dropdown">
+                        <asp:Image ID="imgPerfil" CssClass="img-perfil img-thumbnail" runat="server" Width="50" Height="50" data-bs-toggle="dropdown" aria-expanded="false" />
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="EditarPerfil.aspx">Editar Perfil</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <asp:LinkButton ID="btnCerrarSesion" CssClass="dropdown-item" runat="server" Text="Cerrar Sesión" OnClick="btnCerrarSesion_Click" />
+                            </li>
+                        </ul>
+                    </div>
+                    <asp:LinkButton ID="btnSesion" CssClass="btn btn-primary" runat="server" Text="Iniciar Sesión" PostBackUrl="~/InicioSesion.aspx" />
+                    <asp:LinkButton ID="btnCarrito" runat="server" CssClass="d-block position-relative ms-3" OnClick="btnCarrito_Click">
+                        <i class='fa-solid fa-cart-shopping' style="font-size: 1.8rem;"></i>
+                        <span id='lblCantidadCarrito' runat='server' class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' style='font-size: 10px;'></span>
+                    </asp:LinkButton>
+                </div>
+            </div>
+        </section>
+
+        <%--MENU ADMINISTRADOR--%>
+        <section id="adminMenu" class="menu-admin container-fluid" runat="server">
+            <div class="row">
+                <ul class="nav col-sm-12 pt-3 justify-content-center bg-dark">
+                    <li class="me-3 pb-2 text-white">
+                        <div class="dropdown text-small">
+                            <button class="btn btn-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-2x fa-solid fa-list-check"></i>
+                                <div>Productos</div>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <asp:LinkButton ID="lnkAgregarProducto" runat="server" CssClass="dropdown-item" PostBackUrl="~/AgregarProducto.aspx">Agregar Producto</asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lnkModificarProducto" runat="server" CssClass="dropdown-item" PostBackUrl="~/SeleccionarModificarProducto.aspx">Modificar/Eliminar Producto</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="me-3 pb-2 text-white">
+                        <div class="dropdown text-small">
+                            <button class="btn btn-dark" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-2x fa-solid fa-list-ol"></i>
+                                <div>Categorias</div>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li>
+                                    <asp:LinkButton ID="lnkAgregarCategoria" runat="server" CssClass="dropdown-item" PostBackUrl="~/AgregarCategoria.aspx">Agregar Categoria</asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lnkSeleccionarModificarCategoria" runat="server" CssClass="dropdown-item" PostBackUrl="~/SeleccionarModificarCategoria.aspx">Modificar/Eliminar Categoria</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="me-3 pb-2 text-white">
+                        <div class="dropdown text-small">
+                            <button class="btn btn-dark" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-2x fa-solid fa-registered"></i>
+                                <div>Marcas</div>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li>
+                                    <asp:LinkButton ID="lnkAgregarMarca" runat="server" CssClass="dropdown-item" PostBackUrl="~/AgregarMarca.aspx">Agregar Marca</asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lnkSeleccionarModificarMarca" runat="server" CssClass="dropdown-item" PostBackUrl="~/SeleccionarModificarMarca.aspx">Modificar/Eliminar Marca</asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="me-3 pb-2 text-white">
+                        <div class="dropdown text-small">
+                            <asp:LinkButton ID="lnkReportes" CssClass="btn text-white" runat="server" Text='<i class="fa-2x fa-solid fa-2x fa-solid fa-chart-column"></i><br />Reportes' OnClick="lnkReportes_Click"/>
+                        </div>
+                    </li>
+
+                    <li class="me-3 pb-2 text-white">
+                        <div class="dropdown text-small">
+                            <asp:LinkButton ID="lnkHistorialVentas" CssClass="btn text-white" runat="server" Text='<i class="fa-2x fa-solid fa-clock-rotate-left"></i><br />Historial de Ventas' OnClick="lnkHistorialVentas_Click" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <asp:Table ID="tblMenuAdministrador" runat="server" CssClass="menu-administrador" HorizontalAlign="Center">
+                <asp:TableRow CssClass="menu-administrador-fila">
+                    <asp:TableCell>
+                        
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        
+                    </asp:TableCell>
+                    <asp:TableCell>
+
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
+        </section>
+
+        <%-- CONTENIDO --%>
+        <asp:ContentPlaceHolder ID="Contenido" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <!--Bootstrap JS-->
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/bootstrap/bootstrap.bundle.js" />
+            </Scripts>
+        </asp:ScriptManager>
+    </form>
+</body>
+</html>

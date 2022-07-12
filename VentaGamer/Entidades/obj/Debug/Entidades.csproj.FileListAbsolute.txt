@@ -1,0 +1,6 @@
+C:\Users\gusta\source\repos\VentaGamer\Entidades\bin\Debug\Entidades.dll
+C:\Users\gusta\source\repos\VentaGamer\Entidades\bin\Debug\Entidades.pdb
+C:\Users\gusta\source\repos\VentaGamer\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\gusta\source\repos\VentaGamer\Entidades\obj\Debug\Entidades.dll
+C:\Users\gusta\source\repos\VentaGamer\Entidades\obj\Debug\Entidades.pdb
+C:\Users\gusta\source\repos\VentaGamer\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
